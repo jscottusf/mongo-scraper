@@ -10,10 +10,12 @@ let ArticleSchema = new Schema({
   link: {
     type: String,
     required: true,
+    unique: true,
   },
   teaser: {
     type: String,
     required: true,
+    unique: true,
   },
   topic: {
     type: String,
@@ -22,6 +24,7 @@ let ArticleSchema = new Schema({
   img: {
     type: String,
     required: true,
+    unique: true,
   },
   //show if articles are favorited or not
   favorite: {

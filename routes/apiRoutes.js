@@ -54,4 +54,18 @@ module.exports = function (app) {
     });
     res.redirect("/");
   });
+
+  app.put("/api/favorites/:id", function (req, res) {
+    console.log(req.body);
+    db.Article.findOneAndUpdate(
+      { _id: req.params.id },
+      { favorite: req.body.favorite }
+    ).then(function (err) {
+      if (err) {
+        res.send(err);
+      } else {
+        console.log("success");
+      }
+    });
+  });
 };

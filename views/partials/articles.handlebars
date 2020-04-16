@@ -12,11 +12,11 @@
         <div class="icon-container">
             <div class="icons">
                 {{#unless favorite}}
-                <i class="far fa-heart icon" id="like"></i>
+                <i class="far fa-heart icon like" id="like" data-id={{this.id}}></i>
                 {{else}}
-                <i class="fas fa-heart icon" id="unlike"></i>
+                <i class="fas fa-heart icon unlike" id="unlike" data-id={{this.id}}></i>
                 {{/unless}}
-                <i class="far fa-comments icon" id="note"></i>
+                <i class="far fa-comments icon note" id="note" data-id={{this.id}}></i>
             </div>
         </div>
     </div>

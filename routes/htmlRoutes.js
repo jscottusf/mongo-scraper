@@ -14,7 +14,10 @@ function getArticles(req, res, next) {
       var articles = [];
       data.forEach((article) => {
         var articleData = {
+          id: JSON.stringify(article._id),
           title: article.title,
+          favorite: article.favorite,
+          note: article.note,
           link: article.link,
           img: article.img,
           teaser: article.teaser,
