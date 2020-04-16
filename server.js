@@ -2,7 +2,6 @@ const express = require("express");
 const mongoose = require("mongoose");
 var logger = require("morgan");
 const exphbs = require("express-handlebars");
-const db = require("./models");
 const PORT = process.env.PORT || 8080;
 const app = express();
 

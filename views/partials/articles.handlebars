@@ -1,0 +1,23 @@
+<a href="{{this.link}}" target="_blank">
+    <div class="card">
+
+        <div class="img-container">
+            <img class="card-img-top" src="{{this.img}}" alt=" Card image cap">
+            <div class="top-left">{{this.topic}}</div>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{this.title}}</h5>
+            <p class="card-text">{{this.teaser}}</p>
+        </div>
+        <div class="icon-container">
+            <div class="icons">
+                {{#unless favorite}}
+                <i class="far fa-heart icon" id="like"></i>
+                {{else}}
+                <i class="fas fa-heart icon" id="unlike"></i>
+                {{/unless}}
+                <i class="far fa-comments icon" id="note"></i>
+            </div>
+        </div>
+    </div>
+</a>

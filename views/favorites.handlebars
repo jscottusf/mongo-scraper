@@ -2,7 +2,9 @@
     {{> header}}
     <div class="grid-container">
         {{#each Article }}
+        {{#if favorite}}
         {{> articles}}
+        {{/if}}
         {{/each}}
     </div>
 </div>
