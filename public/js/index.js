@@ -50,12 +50,19 @@ $(".note").on("click", function () {
     $("form-group").prepend();
     if (notes.length > 0) {
       for (var i = 0; i < notes.length; i++) {
-        var nameDiv = $("<div id='name'>" + notes[i].name + "</div>");
-        var noteDiv = $("<div id='note-body'>" + notes[i].body + "</div><hr>");
-        $("#notes").append(nameDiv, noteDiv);
+        var nameDiv = $(
+          "<div id='name'><i class='fas fa-user'></i> <strong>" +
+            notes[i].name +
+            "</strong> " +
+            notes[i].body +
+            "</div>"
+        );
+        $("#notes").append(nameDiv);
       }
     } else {
-      var noneDiv = $("<p>no notes, yet. be the first to comment</p>");
+      var noneDiv = $(
+        "<p><i class='fas fa-user-slash'></i> no one has made any notes</p>"
+      );
       $("#notes").append(noneDiv);
     }
   });

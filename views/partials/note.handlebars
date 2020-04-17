@@ -7,24 +7,27 @@
                 <div class="container bg-white pb-2">
                     <div class=".modal-header">
                         <h4>notes</h4>
+                        <hr>
                         <div id="notes"></div>
                     </div>
                     <form>
                         <div class="form-group">
-                            <label for="name">name:</label>
-                            <input placeholder="Theodore Roosevelt" type="text" class="form-control name" name="name"
-                                id="name">
+                            {{!-- <label for="name">name:</label> --}}
+                            <hr>
+                            <h4>add note</h4>
+
+                            <input placeholder="name..." type="text" class="form-control name" name="name" id="name">
                             <br />
-                            <label for="body">note:</label>
-                            <textarea placeholder="Thanks, Obama" class="form-control" rows="3" name="body"
-                                id="body"></textarea>
+                            {{!-- <label for="body">note:</label> --}}
+                            <textarea placeholder="add a note about this article" class="form-control" rows="3"
+                                name="body" id="body"></textarea>
                         </div>
 
                         <div class="row">
                             <div class="col-lg-10">
                                 <button id="add-note" class="btn btn-sm btn-outline-dark" data-dismiss="modal">add
-                                    note</button>
-                                <button type="button" class="btn btn-sm btn-dark" data-dismiss="modal">Cancel</button>
+                                </button>
+                                <button type="button" class="btn btn-sm btn-dark" data-dismiss="modal">cancel</button>
                             </div>
                         </div>
                     </form>
