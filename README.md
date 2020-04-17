@@ -4,7 +4,7 @@ Full stack web application which scrapes the NPR home page for it's top stories.
 
 deployed at: https://npr-js.herokuapp.com/
 
-![Image of NPR Scraper](./public/assets/images/index.png)
+![Image of NPR Scraper](./public/images/index.png)
 
 ## Technologies and Dependencies
 
