@@ -81,6 +81,7 @@ $("#add-note").on("click", function () {
   }).then(function () {
     $(".name").val("");
     $("#body").val("");
+    location.reload();
   });
 });
 

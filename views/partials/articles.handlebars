@@ -16,8 +16,11 @@
                 {{else}}
                 <i class="fas fa-heart icon unlike" id="unlike" data-id={{this.id}}></i>
                 {{/unless}}
-                <i class="far fa-comments icon note" id="note" data-id={{this.id}} data-toggle="modal"
+
+                <i class="far fa-comment-alt icon note" id="note" data-id={{this.id}} data-toggle="modal"
                     data-target="#noteModal"></i>
+                <div class="note-num">{{ this.note.length }}</div>
+
             </div>
         </div>
     </div>
