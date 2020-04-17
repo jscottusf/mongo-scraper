@@ -55,17 +55,78 @@ module.exports = function (app) {
     res.redirect("/");
   });
 
-  app.put("/api/favorites/:id", function (req, res) {
+  //find all of the articles
+  app.get("/api/articles", function (req, res) {
+    db.Article.find({})
+      .then(function (data) {
+        //send back a response containing the data in json format
+        res.json(data);
+        //if error, return error
+      })
+      .catch(function (err) {
+        res.json(err);
+      });
+  });
+
+  //find a specific article by their id and associate comments
+  app.get("/api/articles/:id", function (req, res) {
+    db.Article.findOne({ _id: req.params.id })
+      .populate("note")
+      .then(function (data) {
+        res.json(data);
+      })
+      .catch(function (err) {
+        res.json(err);
+      });
+  });
+
+  app.get("/api/articles/:id", function (req, res) {
+    db.Article.findOneAndUpdate(
+      { _id: req.params.id },
+      { favorite: req.body.favorite }
+    )
+      .populate("note")
+      .then(function (err, results) {
+        if (err) {
+          res.send(err);
+        } else {
+          res.json(results);
+        }
+      });
+  });
+
+  app.put("/api/articles/:id", function (req, res) {
     console.log(req.body);
     db.Article.findOneAndUpdate(
       { _id: req.params.id },
       { favorite: req.body.favorite }
-    ).then(function (err) {
-      if (err) {
-        res.send(err);
-      } else {
-        console.log("success");
-      }
+    )
+      .populate("note")
+      .then(function (err) {
+        if (err) {
+          res.send(err);
+        } else {
+          console.log("success");
+        }
+      });
+  });
+
+  app.post("/api/articles/:id", function (req, res) {
+    console.log(req.body);
+    var note = new db.Note(req.body);
+    note.checkName();
+    db.Note.create(note).then(function (dbNote) {
+      db.Article.findOneAndUpdate(
+        { _id: req.params.id },
+        { $push: { note: dbNote._id } },
+        { new: true }
+      )
+        .then(function (data) {
+          res.json(data);
+        })
+        .catch(function (err) {
+          res.json(err);
+        });
     });
   });
 };

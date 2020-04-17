@@ -27,7 +27,7 @@ body {
   min-height: 495px;
 }
 
-.btn {
+.btn-lg {
   float: right;
   margin: 10px 2px;
 }
@@ -77,4 +77,21 @@ body {
 #scrape,
 #favorites:hover {
   color: white;
+}
+
+/* Modal styling */
+
+.modal {
+  color: #353b40;
+  border-radius: 15px;
+}
+
+.modal-dialog {
+  max-width: 750px;
+}
+
+.modal-header {
+  min-height: 200px;
+  justify-content: center;
+  background-color: rgb(16, 2, 42);
 }

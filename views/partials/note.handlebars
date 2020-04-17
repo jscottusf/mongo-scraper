@@ -1,0 +1,35 @@
+<!-- Modal -->
+<div class="modal fade" id="noteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body border border-dark rounded">
+                <div class="container bg-white pb-2">
+                    <div class=".modal-header">
+                        <h4>notes</h4>
+                        <div id="notes"></div>
+                    </div>
+                    <form>
+                        <div class="form-group">
+                            <label for="name">name:</label>
+                            <input placeholder="Theodore Roosevelt" type="text" class="form-control name" name="name"
+                                id="name">
+                            <br />
+                            <label for="body">note:</label>
+                            <textarea placeholder="Thanks, Obama" class="form-control" rows="3" name="body"
+                                id="body"></textarea>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-10">
+                                <button id="add-note" class="btn btn-sm btn-outline-dark" data-dismiss="modal">add
+                                    note</button>
+                                <button type="button" class="btn btn-sm btn-dark" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
