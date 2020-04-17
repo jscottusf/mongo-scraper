@@ -15,8 +15,8 @@ app.use(express.static("public"));
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-let URI = process.env.MONGODB_URI || "mongodb://localhost/npr_scraper";
-mongoose.connect(URI, {
+let MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/npr_scraper";
+mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
 });
 
