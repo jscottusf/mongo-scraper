@@ -68,6 +68,7 @@ module.exports = function (app) {
   //find all of the articles
   app.get('/api/articles', function (req, res) {
     db.Article.find({})
+      .populate('note')
       .then(function (data) {
         //send back a response containing the data in json format
         res.json(data);
