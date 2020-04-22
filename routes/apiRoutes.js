@@ -1,37 +1,37 @@
-const axios = require("axios");
-const cheerio = require("cheerio");
-const db = require("../models");
+const axios = require('axios');
+const cheerio = require('cheerio');
+const db = require('../models');
 
 module.exports = function (app) {
-  app.get("/scrape", function (req, res) {
-    axios.get("https://www.npr.org").then(function (response) {
+  app.get('/scrape', function (req, res) {
+    axios.get('https://www.npr.org').then(function (response) {
       let $ = cheerio.load(response.data);
-      $("article").each(function (i, element) {
+      $('article').each(function (i, element) {
         var result = {};
         result.title = $(element)
-          .children(".story-wrap")
-          .find("a")
-          .children(".title")
+          .children('.story-wrap')
+          .find('a')
+          .children('.title')
           .text();
 
-        result.link = $(element).children(".story-wrap").find("a").attr("href");
+        result.link = $(element).children('.story-wrap').find('a').attr('href');
 
         result.img = $(element)
-          .children(".story-wrap")
-          .find(".imagewrap")
-          .find(".img")
-          .attr("src");
+          .children('.story-wrap')
+          .find('.imagewrap')
+          .find('.img')
+          .attr('src');
 
         result.teaser = $(element)
-          .children(".story-wrap")
-          .find("a")
-          .find(".teaser")
+          .children('.story-wrap')
+          .find('a')
+          .find('.teaser')
           .text();
 
         result.topic = $(element)
-          .children(".story-wrap")
-          .find(".slug")
-          .find("a")
+          .children('.story-wrap')
+          .find('.slug')
+          .find('a')
           .text()
           .trim();
 
@@ -52,11 +52,12 @@ module.exports = function (app) {
         }
       });
     });
-    res.redirect("/");
+    setTimeout(() => res.redirect('/'), 500);
+    //res.redirect('/');
   });
 
   //find all of the articles
-  app.get("/api/articles", function (req, res) {
+  app.get('/api/articles', function (req, res) {
     db.Article.find({})
       .then(function (data) {
         //send back a response containing the data in json format
@@ -69,9 +70,9 @@ module.exports = function (app) {
   });
 
   //find a specific article by their id and associate comments
-  app.get("/api/articles/:id", function (req, res) {
+  app.get('/api/articles/:id', function (req, res) {
     db.Article.findOne({ _id: req.params.id })
-      .populate("note")
+      .populate('note')
       .then(function (data) {
         res.json(data);
       })
@@ -80,12 +81,12 @@ module.exports = function (app) {
       });
   });
 
-  app.get("/api/articles/:id", function (req, res) {
+  app.get('/api/articles/:id', function (req, res) {
     db.Article.findOneAndUpdate(
       { _id: req.params.id },
       { favorite: req.body.favorite }
     )
-      .populate("note")
+      .populate('note')
       .then(function (err, results) {
         if (err) {
           res.send(err);
@@ -95,23 +96,23 @@ module.exports = function (app) {
       });
   });
 
-  app.put("/api/articles/:id", function (req, res) {
+  app.put('/api/articles/:id', function (req, res) {
     console.log(req.body);
     db.Article.findOneAndUpdate(
       { _id: req.params.id },
       { favorite: req.body.favorite }
     )
-      .populate("note")
+      .populate('note')
       .then(function (err) {
         if (err) {
           res.send(err);
         } else {
-          console.log("success");
+          console.log('success');
         }
       });
   });
 
-  app.post("/api/articles/:id", function (req, res) {
+  app.post('/api/articles/:id', function (req, res) {
     console.log(req.body);
     var note = new db.Note(req.body);
     note.checkName();

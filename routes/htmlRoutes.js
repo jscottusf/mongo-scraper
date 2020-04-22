@@ -1,10 +1,10 @@
-const db = require("../models");
+const db = require('../models');
 //const mongoose = require("mongoose");
 //const ObjectID = require("mongoose").ObjectID;
 
 module.exports = function (app) {
-  app.get("/", getArticles, renderIndex);
-  app.get("/favorites", getArticles, renderFavorites);
+  app.get('/', getArticles, renderIndex);
+  app.get('/favorites', getArticles, renderFavorites);
 };
 
 function getArticles(req, res, next) {
@@ -12,7 +12,7 @@ function getArticles(req, res, next) {
     .sort({ _id: -1 })
     .then(function (data) {
       var articles = [];
-      data.forEach((article) => {
+      data.forEach(article => {
         var articleData = {
           id: JSON.stringify(article._id),
           title: article.title,
@@ -34,9 +34,9 @@ function getArticles(req, res, next) {
 }
 
 function renderIndex(req, res) {
-  res.render("index", { ...req });
+  res.render('index', { ...req });
 }
 
 function renderFavorites(req, res) {
-  res.render("favorites", { ...req });
+  res.render('favorites', { ...req });
 }

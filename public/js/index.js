@@ -2,18 +2,18 @@ let modalId;
 let name;
 let body;
 
-$(".icon").on("click", function (event) {
+$('.icon').on('click', function (event) {
   event.preventDefault();
-  var id = $(this).attr("id");
+  var id = $(this).attr('id');
   console.log(id);
 });
 
-$(".like").on("click", function () {
-  var id = $(this).attr("data-id").replace(/['"]+/g, "");
+$('.like').on('click', function () {
+  var id = $(this).attr('data-id').replace(/['"]+/g, '');
   console.log(id);
   $.ajax({
-    method: "PUT",
-    url: "/api/articles/" + id,
+    method: 'PUT',
+    url: '/api/articles/' + id,
     data: {
       favorite: true,
     },
@@ -22,12 +22,12 @@ $(".like").on("click", function () {
   });
 });
 
-$(".unlike").on("click", function () {
-  var id = $(this).attr("data-id").replace(/['"]+/g, "");
+$('.unlike').on('click', function () {
+  var id = $(this).attr('data-id').replace(/['"]+/g, '');
   console.log(id);
   $.ajax({
-    method: "PUT",
-    url: "/api/articles/" + id,
+    method: 'PUT',
+    url: '/api/articles/' + id,
     data: {
       favorite: false,
     },
@@ -36,55 +36,55 @@ $(".unlike").on("click", function () {
   });
 });
 
-$(".note").on("click", function () {
+$('.note').on('click', function () {
   emptyModal();
-  var id = $(this).attr("data-id").replace(/['"]+/g, "");
+  var id = $(this).attr('data-id').replace(/['"]+/g, '');
   modalId = id;
   console.log(id);
   $.ajax({
-    method: "GET",
-    url: "/api/articles/" + id,
+    method: 'GET',
+    url: '/api/articles/' + id,
   }).then(function (results) {
     console.log(results);
     var notes = results.note;
-    $("form-group").prepend();
+    $('form-group').prepend();
     if (notes.length > 0) {
       for (var i = 0; i < notes.length; i++) {
         var nameDiv = $(
           "<div id='name'><i class='fas fa-user'></i> <strong>" +
             notes[i].name +
-            "</strong> " +
+            '</strong> ' +
             notes[i].body +
-            "</div>"
+            '</div>'
         );
-        $("#notes").append(nameDiv);
+        $('#notes').append(nameDiv);
       }
     } else {
       var noneDiv = $(
         "<p><i class='fas fa-user-slash'></i> no one has made any notes</p>"
       );
-      $("#notes").append(noneDiv);
+      $('#notes').append(noneDiv);
     }
   });
 });
 
-$("#add-note").on("click", function () {
-  name = $(".name").val();
-  body = $("#body").val().trim();
+$('#add-note').on('click', function () {
+  name = $('.name').val();
+  body = $('#body').val().trim();
   $.ajax({
-    method: "POST",
-    url: "/api/articles/" + modalId,
+    method: 'POST',
+    url: '/api/articles/' + modalId,
     data: {
       name: name,
       body: body,
     },
   }).then(function () {
-    $(".name").val("");
-    $("#body").val("");
+    $('.name').val('');
+    $('#body').val('');
     location.reload();
   });
 });
 
 function emptyModal() {
-  $("#notes").empty();
+  $('#notes').empty();
 }
