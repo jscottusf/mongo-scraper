@@ -52,8 +52,9 @@ module.exports = function (app) {
         }
       });
     });
+
+    //using ()=> allows this to work properly by only doing the redirect after half a second to cheerio can finish
     setTimeout(() => res.redirect('/'), 500);
-    //res.redirect('/');
   });
 
   //find all of the articles
