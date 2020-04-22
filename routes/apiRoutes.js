@@ -3,31 +3,37 @@ const cheerio = require('cheerio');
 const db = require('../models');
 
 module.exports = function (app) {
+  //scrape npr homepage and store data in MongoDB
   app.get('/scrape', function (req, res) {
     axios.get('https://www.npr.org').then(function (response) {
       let $ = cheerio.load(response.data);
       $('article').each(function (i, element) {
         var result = {};
+        //story title
         result.title = $(element)
           .children('.story-wrap')
           .find('a')
           .children('.title')
           .text();
 
+        //link
         result.link = $(element).children('.story-wrap').find('a').attr('href');
 
+        //image
         result.img = $(element)
           .children('.story-wrap')
           .find('.imagewrap')
           .find('.img')
           .attr('src');
 
+        //story teaser
         result.teaser = $(element)
           .children('.story-wrap')
           .find('a')
           .find('.teaser')
           .text();
 
+        //story topic
         result.topic = $(element)
           .children('.story-wrap')
           .find('.slug')
@@ -35,6 +41,7 @@ module.exports = function (app) {
           .text()
           .trim();
 
+        //if any of these are void, just drop it...
         if (
           result.title &&
           result.link &&
@@ -42,6 +49,7 @@ module.exports = function (app) {
           result.teaser &&
           result.topic
         ) {
+          //add to DB
           db.Article.create(result)
             .then(function (dbArticle) {
               //console.log(dbArticle);
@@ -82,21 +90,7 @@ module.exports = function (app) {
       });
   });
 
-  app.get('/api/articles/:id', function (req, res) {
-    db.Article.findOneAndUpdate(
-      { _id: req.params.id },
-      { favorite: req.body.favorite }
-    )
-      .populate('note')
-      .then(function (err, results) {
-        if (err) {
-          res.send(err);
-        } else {
-          res.json(results);
-        }
-      });
-  });
-
+  //edit article to add to favorities
   app.put('/api/articles/:id', function (req, res) {
     console.log(req.body);
     db.Article.findOneAndUpdate(
@@ -113,6 +107,7 @@ module.exports = function (app) {
       });
   });
 
+  //make a note on the articles
   app.post('/api/articles/:id', function (req, res) {
     console.log(req.body);
     var note = new db.Note(req.body);
@@ -120,6 +115,7 @@ module.exports = function (app) {
     db.Note.create(note).then(function (dbNote) {
       db.Article.findOneAndUpdate(
         { _id: req.params.id },
+        //pushing into an array
         { $push: { note: dbNote._id } },
         { new: true }
       )

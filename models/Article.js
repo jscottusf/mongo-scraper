@@ -1,6 +1,7 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+//should all be unique so no duplicate stories are rendered
 let ArticleSchema = new Schema({
   title: {
     type: String,
@@ -36,11 +37,11 @@ let ArticleSchema = new Schema({
   note: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Note",
+      ref: 'Note',
     },
   ],
 });
 
-let Article = mongoose.model("Article", ArticleSchema);
+let Article = mongoose.model('Article', ArticleSchema);
 
 module.exports = Article;

@@ -2,12 +2,14 @@ let modalId;
 let name;
 let body;
 
+//helps bring icons to the front, so icons won't trigger an article click and open NPR
 $('.icon').on('click', function (event) {
   event.preventDefault();
   var id = $(this).attr('id');
   console.log(id);
 });
 
+//PUT article on favorites
 $('.like').on('click', function () {
   var id = $(this).attr('data-id').replace(/['"]+/g, '');
   console.log(id);
@@ -22,6 +24,7 @@ $('.like').on('click', function () {
   });
 });
 
+//Unline article that's already been liked by clicking on dark heart
 $('.unlike').on('click', function () {
   var id = $(this).attr('data-id').replace(/['"]+/g, '');
   console.log(id);
@@ -36,6 +39,7 @@ $('.unlike').on('click', function () {
   });
 });
 
+//open a modal which contains a form and all notes made on this article
 $('.note').on('click', function () {
   emptyModal();
   var id = $(this).attr('data-id').replace(/['"]+/g, '');
@@ -68,6 +72,7 @@ $('.note').on('click', function () {
   });
 });
 
+//on modal, click add note, make a POST request adding comment to Mongoose
 $('#add-note').on('click', function () {
   name = $('.name').val();
   body = $('#body').val().trim();
@@ -85,6 +90,7 @@ $('#add-note').on('click', function () {
   });
 });
 
+//empty modal should be emptied before rendering comment data so that it's unique to the article
 function emptyModal() {
   $('#notes').empty();
 }

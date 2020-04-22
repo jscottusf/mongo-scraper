@@ -7,12 +7,14 @@ module.exports = function (app) {
   app.get('/favorites', getArticles, renderFavorites);
 };
 
+//get all articles from MongoDB in descending order (so that they are more recent)
 function getArticles(req, res, next) {
   db.Article.find()
     .sort({ _id: -1 })
     .then(function (data) {
       var articles = [];
       data.forEach(article => {
+        //this is storing all data in an object, was having trouble with rendering but this worked
         var articleData = {
           id: JSON.stringify(article._id),
           title: article.title,
