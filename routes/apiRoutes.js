@@ -108,6 +108,14 @@ module.exports = function (app) {
       });
   });
 
+  //delete an article from main page
+  app.delete('/api/articles/:id', function (req, res) {
+    db.Article.findById({ _id: req.params.id })
+      .then(dbArticle => dbArticle.remove())
+      .then(dbArticle => res.json(dbArticle))
+      .catch(err => res.status(422).json(err));
+  });
+
   //make a note on the articles
   app.post('/api/articles/:id', function (req, res) {
     console.log(req.body);

@@ -9,6 +9,18 @@ $('.icon').on('click', function (event) {
   console.log(id);
 });
 
+$('.x').on('click', function (event) {
+  event.preventDefault();
+  var id = $(this).attr('data-id').replace(/['"]+/g, '');
+  console.log(id);
+  $.ajax({
+    method: 'DELETE',
+    url: '/api/articles/' + id,
+  }).then(function () {
+    location.reload();
+  });
+});
+
 //PUT article on favorites
 $('.like').on('click', function () {
   var id = $(this).attr('data-id').replace(/['"]+/g, '');
